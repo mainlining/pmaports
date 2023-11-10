@@ -23,6 +23,7 @@ depends="
 makedepends="devicepkg-dev"
 source="
 	deviceinfo
+	modules-initfs
 "
 
 subpackages="
@@ -42,6 +43,7 @@ nonfree_firmware() {
 	depends="
 		firmware-xiaomi-surya-adsp
 		firmware-xiaomi-surya-cdsp
+		firmware-xiaomi-surya-initramfs
 		firmware-xiaomi-surya-ipa
 		firmware-xiaomi-surya-modem
 		firmware-xiaomi-surya-touchscreen
@@ -54,4 +56,5 @@ nonfree_firmware() {
 
 sha512sums="
 592930b6f0f1002cef77f88df36c7751362c188c3339167d8e28ed48bea9ed5a9e900fe52034db45ce7e11404f9baac02b171992a7b07b5c83fa2aed97b6c1e8  deviceinfo
+6d86b9211d4adf237ef2961f304655331287c186bba56b1af32185401b01b506949557ce6e70dc70e3c9997b4f5684c9f4cdfd11c79ccbc7a869147b6fb9bb53  modules-initfs
 "
