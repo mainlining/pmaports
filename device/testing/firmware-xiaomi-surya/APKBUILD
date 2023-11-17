@@ -9,6 +9,7 @@ subpackages="
 	$pkgname-ipa
 	$pkgname-modem
 	$pkgname-touchscreen
+	$pkgname-venus
 	$pkgname-wlan
 	"
 url="https://github.com/sm7150-mainline/firmware-xiaomi-surya"
