@@ -18,7 +18,6 @@ depends="
 	postmarketos-update-kernel
 	soc-qcom-sm7150
 	soc-qcom-sm7150-aw8695-feedbackd-rules
-	soc-qcom-sm7150-phosh
 "
 makedepends="devicepkg-dev"
 source="
