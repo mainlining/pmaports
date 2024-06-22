@@ -1,0 +1,61 @@
+# Reference: <https://postmarketos.org/devicepkg>
+# Maintainer: Danila Tikhonov <danila@jiaxyga.com>
+# Co-Maintainer: Eugene Lepshy <fekz115@gmail.com>
+
+pkgname=device-nothing-spacewar
+pkgdesc="Nothing Phone (1)"
+pkgver=1
+pkgrel=0
+url="https://postmarketos.org"
+license="MIT"
+arch="aarch64"
+options="!check !archcheck"
+depends="
+	firmware-nothing-spacewar
+	hexagonrpcd>=0.3.2-r3
+	linux-postmarketos-qcom-sc7280
+	make-dynpart-mappings
+	mkbootimg
+	postmarketos-base
+	soc-qcom-sc7280
+	soc-qcom-sc7280-qbootctl
+	unl0kr-fbforcerefresh
+"
+makedepends="devicepkg-dev"
+subpackages="$pkgname-openrc"
+source="
+	81-libssc-nothing-spacewar.rules
+	deviceinfo
+	hexagonrpcd.confd
+	modules-initfs
+"
+
+build() {
+	devicepkg_build $startdir $pkgname
+}
+
+package() {
+	devicepkg_package $startdir $pkgname
+
+	# libSSC rules
+	install -Dm644 "$srcdir"/81-libssc-nothing-spacewar.rules -t \
+		"$pkgdir"/usr/lib/udev/rules.d
+
+	install -Dm644 "$srcdir"/hexagonrpcd.confd \
+		"$pkgdir"/usr/share/hexagonrpcd/hexagonrpcd-adsp-sensorspd.conf
+}
+
+openrc() {
+	install_if="$pkgname=$pkgver-r$pkgrel openrc"
+	install="$subpkgname.post-install $subpkgname.post-upgrade"
+	depends="hexagonrpcd-openrc"
+
+	mkdir -p "$subpkgdir"
+}
+
+sha512sums="
+2c16ba75e0077b2b1eaefa4c73b287475505a1aeb291ec29316d41cc094277320f9d2aaabfd91eb1dc0f488ab2d61a94faef16e7afe0f1e226779113761b9a37  81-libssc-nothing-spacewar.rules
+f8558048ef6514041b58c0dd70c94c4c4dfc2abc7a92df01dd961b379e2482d044450019018ef40991d0c1f3ad7e95a328660f4521d9432275e1eabbd98d3aab  deviceinfo
+1a10b77b74ae6f2f35e51aa7355b9ad3cc3cb57b95d83a0f2a85dca7f69862593fa0ee1edc59777932d2c8176c4f5129032f94201ee3b9f58251a968a972ec6b  hexagonrpcd.confd
+39fdad0de104fb05d4fbf7883cda032c46ee25057ffaf2cf03cd0629d75cd0836e4ac857e4b1921c293fb5fc90ec18432bb7f5ff7afe73cdc3a4e1f9c153b854  modules-initfs
+"
