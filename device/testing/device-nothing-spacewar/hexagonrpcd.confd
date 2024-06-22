@@ -1,0 +1,2 @@
+# Nothing Phone (1) specific hexagonrpcd firmware directory
+hexagonrpcd_fw_dir="/usr/share/qcom/sm7325/nothing/spacewar"
