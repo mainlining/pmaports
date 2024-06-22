@@ -1,0 +1,62 @@
+# Reference: <https://postmarketos.org/devicepkg>
+# Maintainer: Danila Tikhonov <danila@jiaxyga.com>
+# Co-Maintainer: Eugene Lepshy <fekz115@gmail.com>
+
+pkgname=device-nothing-spacewar
+pkgdesc="Nothing Phone (1)"
+pkgver=1
+pkgrel=0
+url="https://postmarketos.org"
+license="MIT"
+arch="aarch64"
+options="!check !archcheck"
+depends="
+	alsa-ucm-conf-qcom-sc7280
+	firmware-nothing-spacewar
+	firmware-qcom-adreno-a660
+	hexagonrpcd>=0.3.2-r3
+	linux-firmware-ath11k
+	linux-firmware-qca
+	linux-postmarketos-qcom-sc7280
+	make-dynpart-mappings
+	mkbootimg
+	postmarketos-base
+	soc-qcom
+	soc-qcom-modem
+	soc-qcom-pd-mapper
+	soc-qcom-qbootctl
+	unl0kr-fbforcerefresh
+"
+makedepends="devicepkg-dev"
+subpackages="$pkgname-openrc"
+source="
+	81-libssc-nothing-spacewar.rules
+	deviceinfo
+	modules-initfs
+"
+
+build() {
+	devicepkg_build $startdir $pkgname
+}
+
+package() {
+	devicepkg_package $startdir $pkgname
+
+	# libSSC rules
+	install -Dm644 "$srcdir"/81-libssc-nothing-spacewar.rules -t \
+		"$pkgdir"/usr/lib/udev/rules.d
+}
+
+openrc() {
+	install_if="$pkgname=$pkgver-r$pkgrel openrc"
+	install="$subpkgname.post-install $subpkgname.post-upgrade"
+	depends="hexagonrpcd-openrc"
+
+	mkdir -p "$subpkgdir"
+}
+
+sha512sums="
+2c16ba75e0077b2b1eaefa4c73b287475505a1aeb291ec29316d41cc094277320f9d2aaabfd91eb1dc0f488ab2d61a94faef16e7afe0f1e226779113761b9a37  81-libssc-nothing-spacewar.rules
+554815ee5114888f3378b0deed7e07f2d91ed2a292867a87c331edd019340536dbad4b8b7172cf24f02d54ff14cf1df661a5e4f8ec4a0897b563ff29dc4b9caf  deviceinfo
+39fdad0de104fb05d4fbf7883cda032c46ee25057ffaf2cf03cd0629d75cd0836e4ac857e4b1921c293fb5fc90ec18432bb7f5ff7afe73cdc3a4e1f9c153b854  modules-initfs
+"
