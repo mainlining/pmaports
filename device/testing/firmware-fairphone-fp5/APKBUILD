@@ -6,7 +6,6 @@ pkgdesc="Firmware for Fairphone 5"
 subpackages="
 	$pkgname-adreno
 	$pkgname-adsp
-	$pkgname-bluetooth
 	$pkgname-cdsp
 	$pkgname-hexagonfs
 	$pkgname-ipa
@@ -50,15 +49,6 @@ adsp() {
 		"$subpkgdir/lib/firmware/qcom/qcm6490/fairphone5/"
 	install -Dm644 "$builddir"/battmgr.jsn -t \
 		"$subpkgdir/lib/firmware/qcom/qcm6490/fairphone5/"
-}
-
-bluetooth() {
-	pkgdesc="Fairphone 5 bluetooth firmware"
-
-	install -Dm644 "$builddir"/msbtfw11.mbn -t \
-		"$subpkgdir/lib/firmware/qca/"
-	install -Dm644 "$builddir"/msnv11.bin -t \
-		"$subpkgdir/lib/firmware/qca/"
 }
 
 cdsp() {
