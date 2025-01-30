@@ -9,7 +9,9 @@ arch="aarch64"
 options="!check !archcheck !tracedeps"
 depends="
 	bootmac
+	firmware-qcom-adreno-a660
 	linux-firmware-ath11k
+	linux-firmware-qca
 	msm-modem
 	msm-modem-uim-selection
 	pd-mapper
