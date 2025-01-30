@@ -3,7 +3,7 @@
 pkgname=device-fairphone-fp5
 pkgdesc="Fairphone 5"
 pkgver=8
-pkgrel=0
+pkgrel=1
 url="https://postmarketos.org"
 license="MIT"
 arch="aarch64"
@@ -12,14 +12,12 @@ depends="
 	alsa-ucm-conf
 	firmware-fairphone-fp5-adreno
 	firmware-fairphone-fp5-adsp
-	firmware-fairphone-fp5-bluetooth
 	firmware-fairphone-fp5-cdsp
 	firmware-fairphone-fp5-hexagonfs
 	firmware-fairphone-fp5-ipa
 	firmware-fairphone-fp5-modem
 	firmware-fairphone-fp5-venus
 	firmware-fairphone-fp5-wpss
-	firmware-qcom-adreno-a660
 	hexagonrpcd>=0.3.2-r3
 	linux-postmarketos-qcom-sc7280
 	make-dynpart-mappings
