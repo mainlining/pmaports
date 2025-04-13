@@ -8,6 +8,7 @@ license="BSD-3-Clause"
 arch="aarch64"
 options="!check !archcheck !tracedeps"
 depends="
+	alsa-ucm-conf-qcom-sc7280
 	bootmac
 	firmware-qcom-adreno-a660
 	linux-firmware-ath11k
