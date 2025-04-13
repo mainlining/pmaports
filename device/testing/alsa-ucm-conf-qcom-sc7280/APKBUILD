@@ -1,0 +1,25 @@
+# Maintainer: Danila Tikhonov <danila@jiaxyga.com>
+
+pkgname=alsa-ucm-conf-qcom-sc7280
+pkgver=1
+pkgrel=1
+pkgdesc="ALSA UCM configuration for sc7280 devices"
+url="https://github.com/sc7280-mainline/alsa-ucm-conf"
+arch="aarch64"
+license="BSD-3-Clause"
+provides="alsa-ucm-conf"
+provider_priority=1
+_commit="e15e3eeaedde2ed650caac3757f2f5a9cc6d1484"
+source="$pkgname-$_commit.tar.gz::$url/archive/$_commit.tar.gz"
+options="!check"
+builddir="$srcdir/alsa-ucm-conf-$_commit"
+
+package() {
+	# install audio config files
+	mkdir -p "$pkgdir"/usr/share/alsa
+	cp -r ucm2 "$pkgdir"/usr/share/alsa/
+}
+
+sha512sums="
+cacb2c5c9b9243174abf1edf6edf33a5545d90595608293025baeca1672b407ede9d0be9aaf880902874a527c7551e1c778feb7d07c50f07f2809c7ab0a88f99  alsa-ucm-conf-qcom-sc7280-e15e3eeaedde2ed650caac3757f2f5a9cc6d1484.tar.gz
+"
