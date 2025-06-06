@@ -1,0 +1,59 @@
+# Maintainer: Luca Weiss <luca@lucaweiss.eu>
+
+_flavor="postmarketos-qcom-sm7635"
+pkgname=linux-$_flavor
+pkgver=6.16_rc1
+pkgrel=0
+pkgdesc="Mainline Kernel fork for SM7635 devices"
+arch="aarch64"
+_carch="arm64"
+url="https://github.com/z3ntu/linux"
+license="GPL-2.0-only"
+options="!strip !check !tracedeps
+	pmb:cross-native
+	pmb:kconfigcheck-community
+	"
+makedepends="bash bison findutils flex installkernel openssl-dev perl python3"
+
+_repo="linux"
+_config="config-$_flavor.$arch"
+_tag="v$pkgver-sm7635"
+
+# Source
+source="
+	https://github.com/z3ntu/$_repo/archive/refs/tags/$_tag/$_repo-$_tag.tar.gz
+	$_config
+"
+builddir="$srcdir/$_repo-$pkgver-sm7635"
+
+prepare() {
+	default_prepare
+	cp "$srcdir/config-$_flavor.$arch" .config
+}
+
+build() {
+	unset LDFLAGS
+	make ARCH="$_carch" CC="${CC:-gcc}" \
+		KBUILD_BUILD_VERSION="$((pkgrel + 1 ))-$_flavor"
+}
+
+package() {
+	install -Dm644 "$builddir/arch/$_carch/boot/Image.gz" \
+		"$pkgdir/boot/vmlinuz"
+
+	make modules_install dtbs_install \
+		ARCH="$_carch" \
+		INSTALL_PATH="$pkgdir"/boot/ \
+		INSTALL_MOD_PATH="$pkgdir" \
+		INSTALL_MOD_STRIP=1 \
+		INSTALL_DTBS_PATH="$pkgdir"/boot/dtbs
+	rm -f "$pkgdir"/lib/modules/*/build "$pkgdir"/lib/modules/*/source
+
+	install -D "$builddir"/include/config/kernel.release \
+		"$pkgdir"/usr/share/kernel/$_flavor/kernel.release
+}
+
+sha512sums="
+66687852088a771992ee3662cf1fd5e2d1aaedfb1d265516f5ce8037b28b3c7064fed1a928582c5afd8a74b4b94795d7d16502429bdf4ff647cbafaef32a99e2  linux-v6.16_rc1-sm7635.tar.gz
+9a9a694c78f33e9363d8ae50f5a17307c17501dc554caa24c5740cc47af2d83668b9a58076099af0adb46f8130081c1552f034ee496f33125d1d9d4d1f717ab0  config-postmarketos-qcom-sm7635.aarch64
+"

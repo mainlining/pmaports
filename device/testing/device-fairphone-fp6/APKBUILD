@@ -1,0 +1,45 @@
+# Reference: <https://postmarketos.org/devicepkg>
+# Maintainer: Luca Weiss <luca@lucaweiss.eu>
+pkgname=device-fairphone-fp6
+pkgdesc="The Fairphone (Gen. 6)"
+pkgver=1
+pkgrel=0
+url="https://postmarketos.org"
+license="MIT"
+arch="aarch64"
+options="!check !archcheck"
+depends="
+	firmware-fairphone-fp6-adreno
+	firmware-fairphone-fp6-adsp
+	firmware-fairphone-fp6-bluetooth
+	firmware-fairphone-fp6-cdsp
+	firmware-fairphone-fp6-ipa
+	firmware-fairphone-fp6-modem
+	firmware-fairphone-fp6-venus
+	firmware-fairphone-fp6-wpss
+	linux-postmarketos-qcom-sm7635
+	mkbootimg
+	postmarketos-base
+"
+makedepends="devicepkg-dev"
+source="
+	00-mesa.sh
+	deviceinfo
+	modules-initfs
+	"
+build() {
+	devicepkg_build $startdir $pkgname
+}
+
+package() {
+	devicepkg_package $startdir $pkgname
+
+	install -Dm644 "$srcdir"/00-mesa.sh \
+		"$pkgdir"/etc/profile.d/00-mesa.sh
+}
+
+sha512sums="
+17533b261db6ead91b360e2d71355297fc3ad37f3fc68f6f03a8f7bb31e1ca82ecc403454aa360c7eace9164199086422f9e2d7507e24e4695caa8d3c117034f  00-mesa.sh
+0d7de7bbf1aa84782320f290294cd1f8fb545b9ac12ad862eb3df4def7a221c11d316b52a34269d127d436a479fe58f0c56d0d2b9b65896592b0794daaff9742  deviceinfo
+c535c211a6d594605e0e2af3536e457b4b6a4b833f26efda4dbd514597d080393a621338c274173f4633eadefc0c2ae830f7ceaa4cbe56a1e6715ff825af18f1  modules-initfs
+"
