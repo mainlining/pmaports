@@ -1,8 +1,8 @@
 # Maintainer: Luca Weiss <luca@lucaweiss.eu>
 pkgname=soc-qcom-sc7280
 pkgdesc="Common package for Qualcomm SC7280/SM7325/QCM6490 devices"
-pkgver=1
-pkgrel=3
+pkgver=2
+pkgrel=0
 url="https://postmarketos.org"
 license="BSD-3-Clause"
 arch="aarch64"
