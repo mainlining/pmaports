@@ -9,8 +9,8 @@ arch="aarch64"
 license="BSD-3-Clause"
 provides="alsa-ucm-conf"
 provider_priority=1
-_commit="e2f6767c294c458a2b02214d5c74460b1c50eed8"
-source="$pkgname-$_commit.tar.gz::https://github.com/sc7280-mainline/alsa-ucm-conf/archive/$_commit.tar.gz"
+_commit="e15e3eeaedde2ed650caac3757f2f5a9cc6d1484"
+source="$pkgname-$_commit.tar.gz::$url/archive/$_commit.tar.gz"
 options="!check"
 builddir="$srcdir/alsa-ucm-conf-$_commit"
 
