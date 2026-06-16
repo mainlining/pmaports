@@ -65,7 +65,7 @@ nonfree_firmware() {
 	"
 	mkdir "$subpkgdir"
 
-	install -Dm644 81-libssc-xiaomi-alioth.rules \
+	install -Dm644 "$srcdir"/81-libssc-xiaomi-alioth.rules \
 		"$subpkgdir"/etc/udev/rules.d/81-libssc-xiaomi-alioth.rules
 
 	install -Dm644 "$srcdir"/hexagonrpcd.confd \
